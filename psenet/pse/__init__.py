@@ -6,8 +6,8 @@ import torch
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
-if subprocess.call(['make', '-C', BASE_DIR]) != 0:  # return value
-    raise RuntimeError('Cannot compile pse: {}'.format(BASE_DIR))
+# if subprocess.call(['make', '-C', BASE_DIR]) != 0:  # return value
+#     raise RuntimeError('Cannot compile pse: {}'.format(BASE_DIR))
 
 def pse_warpper(kernals, min_area=5):
     '''
@@ -17,7 +17,7 @@ def pse_warpper(kernals, min_area=5):
     :return:
     '''
 
-    from .pse import pse_cpp
+    from . import pse
 
     kernal_num = len(kernals)
     if not kernal_num:
@@ -32,7 +32,7 @@ def pse_warpper(kernals, min_area=5):
             continue
         label_values.append(label_idx)
 
-    pred = pse_cpp(label, kernals, c=kernal_num)
+    pred = pse.pse_cpp(label, kernals, c=kernal_num)
 
     return np.array(pred), label_values
 
