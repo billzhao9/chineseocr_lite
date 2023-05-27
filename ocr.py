@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import cv2
+
 import torch
 import numpy as np
 from PIL import Image
@@ -12,6 +12,7 @@ from angle_class import AangleClassHandle, shufflenet_v2_x0_5
 
 
 def crop_rect(img, rect, alph=0.15):
+    import cv2
     img = np.asarray(img)
     center, size, angle = rect[0], rect[1], rect[2]
     min_size = min(size)
@@ -104,17 +105,35 @@ angle_model_path = "models/shufflenetv2_05.pth"
 angle_net = shufflenet_v2_x0_5(num_classes=len(lable_map_dict), pretrained=False)
 angle_handle = AangleClassHandle(angle_model_path, angle_net, gpu_id=gpu_id)
 
-def result(img):
-    back = {}
-    img = Image.open(BytesIO(img)).convert('RGB')
-    img = np.array(img)
-    result = text_predict(img)
-    back['文本'] = list(map(lambda x: x['text'], result))
-    res = trainTicket.trainTicket(result)
-    back['火车票'] = str(res)
-    res = idcard.idcard(result)
-    back['身份证'] = str(res)
-    return back
+# def result(img):
+#     back = {}
+#     img = Image.open(BytesIO(img)).convert('RGB')
+#     img = np.array(img)
+#     result = text_predict(img)
+#     back['文本'] = list(map(lambda x: x['text'], result))
+#     res = trainTicket.trainTicket(result)
+#     back['火车票'] = str(res)
+#     res = idcard.idcard(result)
+#     back['身份证'] = str(res)
+#     return back
+
+def result(imgs):
+    if not isinstance(imgs, list):
+        imgs = [imgs]
+    results = []
+    for img in imgs:
+        back = {}
+        if isinstance(img, bytes):
+            img = Image.open(BytesIO(img)).convert('RGB')
+        img = np.array(img)
+        result = text_predict(img)
+        back['text'] = list(map(lambda x: x['text'], result))
+        res = trainTicket.trainTicket(result)
+        back['trainticket'] = str(res)
+        res = idcard.idcard(result)
+        back['idcard'] = str(res)
+        results.append(back)
+    return results
 
 if __name__ == '__main__':
     img = './test/idcard-demo.jpg'

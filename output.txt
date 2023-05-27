@@ -1,0 +1,1 @@
+{'run_id': 'caa2f0bd-db90-4acf-a2df-e259a7ab522d', 'message': 'success', 'result': '[{"text": ["奋斗", "梅花香自苦寒来", "宝创锋从磨砺;出"], "trainticket": "{}", "idcard": "{}"}]', 'run_time_ms': 187.3321533203125}

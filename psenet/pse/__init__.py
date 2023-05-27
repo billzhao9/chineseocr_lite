@@ -1,7 +1,7 @@
 import subprocess
 import os
 import numpy as np
-import cv2
+
 import torch
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -16,7 +16,7 @@ def pse_warpper(kernals, min_area=5):
     :param min_area:
     :return:
     '''
-
+    import cv2
     from . import pse
 
     kernal_num = len(kernals)
@@ -49,6 +49,7 @@ def decode(preds, scale,
     :param threshold: sigmoid的阈值
     :return: 最后的输出图和文本框
     """
+    import cv2
     if not no_sigmode:
         preds = torch.sigmoid(preds)
         preds = preds.detach().cpu().numpy()

@@ -1,7 +1,7 @@
 import torch
 from torchvision import transforms
 import os
-import cv2
+
 import time
 import numpy as np
 
@@ -55,6 +55,7 @@ class PSENetHandel():
         :param is_numpy:
         :return:
         '''
+        import cv2
         # assert os.path.exists(img), 'file is not exists'
         # img = cv2.imread(img)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)

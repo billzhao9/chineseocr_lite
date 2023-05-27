@@ -1,7 +1,6 @@
 import torch
 from torchvision import transforms
 import os
-import cv2
 import time
 import numpy as np
 # alphabetfrom .keys import alphabet

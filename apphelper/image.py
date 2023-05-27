@@ -6,7 +6,7 @@
 import six
 import base64
 import numpy as np
-import cv2
+
 from PIL import Image
 from io import BytesIO
 def base64_to_PIL(string):
@@ -141,7 +141,7 @@ def letterbox_image(image, size,fillValue=[128,128,128]):
     w, h = size
     new_w = int(image_w * min(w*1.0/image_w, h*1.0/image_h))
     new_h = int(image_h * min(w*1.0/image_w, h*1.0/image_h))
-    
+    import cv2
     resized_image = cv2.resize(image,(new_w,new_h))
     if fillValue is None:
        fillValue = [int(x.mean()) for x in cv2.split(np.array(image))]
