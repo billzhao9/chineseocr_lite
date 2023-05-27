@@ -74,7 +74,7 @@ def text_predict(img):
 
 # 调用CPU或GPU
 gpu_id = 0
-if isinstance(gpu_id, int) and torch.cuda.is_available():
+if gpu_id and isinstance(gpu_id, int) and torch.cuda.is_available():
     device = torch.device("cuda:{}".format(gpu_id))
 else:
     device = torch.device("cpu")
